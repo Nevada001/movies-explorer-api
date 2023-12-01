@@ -8,7 +8,7 @@ const { createUser, getUser, login } = require("./controllers/user");
 const  auth  = require("./middlewares/auth");
 const userRoutes = require("./routes/user");
 const movieRoutes = require("./routes/movie");
-const { requestLogger } = require("./middlewares/logger");
+const { requestLogger, errorLogger } = require("./middlewares/logger");
 mongoose.connect("mongodb://127.0.0.1:27017/moviesdb");
 const { PORT = 3000 } = process.env;
 const app = express();

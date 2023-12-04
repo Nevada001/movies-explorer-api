@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const validator = require("validator");
-const bcrypt = require("bcrypt");
+const mongoose = require('mongoose');
+const validator = require('validator');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
     validate: {
       validator: validator.isEmail,
-      message: "Неверный формат e-mail",
+      message: 'Неверный формат e-mail',
     },
   },
   password: {
@@ -25,21 +25,20 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-
 userSchema.statics.findUserByCredentials = function (email, password) {
   return this.findOne({ email })
-    .select("+password")
+    .select('+password')
     .then((user) => {
       if (!user) {
-        return Promise.reject(new Error("NotAutanticate"));
+        return Promise.reject(new Error('NotAutanticate'));
       }
       return bcrypt.compare(password, user.password).then((matched) => {
         if (!matched) {
-          return Promise.reject(new Error("NotAutentiticate"));
+          return Promise.reject(new Error('NotAutentiticate'));
         }
         return user;
       });
     });
 };
 
-module.exports = mongoose.model("user", userSchema);
+module.exports = mongoose.model('user', userSchema);

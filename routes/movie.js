@@ -10,6 +10,7 @@ movieRoutes.post('/', celebrate({
     duration: Joi.number().required(),
     year: Joi.string().required(),
     description: Joi.string().required(),
+    movieId: Joi.number().required(),
     trailerLink: Joi.string().uri().required()
       .regex(/https?:\/\/[a-zA-Z0-9]+\.[^\s]{2,}/),
     image: Joi.string().uri().required()
@@ -19,5 +20,7 @@ movieRoutes.post('/', celebrate({
     nameEN: Joi.string().required(),
   }),
 }), createMovie);
-movieRoutes.delete('/:_id', deleteMovie);
+movieRoutes.delete('/:_id', celebrate({
+  params: Joi.object().keys({ _id: Joi.string().hex().required().length(24) }),
+}), deleteMovie);
 module.exports = movieRoutes;

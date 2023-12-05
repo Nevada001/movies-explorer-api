@@ -11,8 +11,9 @@ const movieRoutes = require('./routes/movie');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/notFoundErr');
 
-mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb');
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, NODE_ENV, DB_URL } = process.env;
+const { MONGO_URL } = require('./utils/env.config');
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -45,6 +46,11 @@ app.use((err, req, res, next) => {
     });
   next(err);
 });
-app.listen(PORT, () => {
-  console.log(`App listeninng on ${PORT}`);
-});
+async function init() {
+  await mongoose.connect(NODE_ENV === 'production' ? DB_URL : MONGO_URL);
+  await app.listen((PORT), () => {
+    console.log(`App listening on ${PORT}`);
+  });
+}
+
+init();

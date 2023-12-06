@@ -40,6 +40,11 @@ const movieSchema = new mongoose.Schema({
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    required: {
+      value: true,
+      message: 'Необходимо указать автора карточки с фильмом',
+    },
   },
   movieId: {
     type: Number,

@@ -6,7 +6,8 @@ const Movies = require('../models/movie');
 const Status = require('../utils/statusCodes');
 
 module.exports.getMovies = (req, res, next) => {
-  Movies.find({})
+  const ownerId = req.user._id;
+  Movies.find({ owner: ownerId })
     .then((movies) => res.send(movies))
     .catch(next);
 };
@@ -25,7 +26,7 @@ module.exports.createMovie = (req, res, next) => {
     nameEN,
     thumbnail,
   } = req.body;
-  const owner = req.user._id;
+  const ownerId = req.user._id;
   Movies.create({
     country,
     director,
@@ -38,7 +39,7 @@ module.exports.createMovie = (req, res, next) => {
     nameRU,
     nameEN,
     thumbnail,
-    owner,
+    owner: ownerId,
   })
     .then((movie) => res.status(Status.CREATED).send(movie))
     .catch((err) => {

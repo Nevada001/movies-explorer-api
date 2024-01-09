@@ -1,2 +1,2 @@
 # movies-explorer-api
-## Адрес API сервера: https://api.nevadamovies.nomoredomainsmonster.ru.
+## Адрес API сервера: https://api.nevadamovies.nomoredomainsmonster.ru

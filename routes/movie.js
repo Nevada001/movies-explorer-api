@@ -5,7 +5,7 @@ const { getMovies, createMovie, deleteMovie } = require('../controllers/movies')
 movieRoutes.get('/', getMovies);
 movieRoutes.post('/', celebrate({
   body: Joi.object().keys({
-    country: Joi.string().min(2).max(30).required(),
+    country: Joi.string().min(2).required(),
     director: Joi.string().required(),
     duration: Joi.number().required(),
     year: Joi.string().required(),

@@ -1,2 +1,3 @@
 # movies-explorer-api
-## Адрес API сервера: https://api.nevadamovies.nomoredomainsmonster.ru
+## Описание
+Бэкэнд для дипломного проекта на expressJS. В качестве базы данных используется mongodb. Тестирование запросов в процессе разработки реализовывалось через Postman.
